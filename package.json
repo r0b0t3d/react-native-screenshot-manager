@@ -1,6 +1,6 @@
 {
   "name": "react-native-screenshot-manager",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "React Native Screenshot Manager",
   "main": "lib/index",
   "module": "lib/index",

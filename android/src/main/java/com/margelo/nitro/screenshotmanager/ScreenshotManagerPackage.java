@@ -13,7 +13,7 @@ import com.margelo.nitro.core.HybridObject;
 import java.util.HashMap;
 import java.util.function.Supplier;
 
-public class ScreenshotMangerPackage extends TurboReactPackage {
+public class ScreenshotManagerPackage extends TurboReactPackage {
   @Nullable
   @Override
   public NativeModule getModule(String name, ReactApplicationContext reactContext) {
@@ -28,6 +28,6 @@ public class ScreenshotMangerPackage extends TurboReactPackage {
   }
 
   static {
-    ScreenshotMangerOnLoad.initializeNative();
+    ScreenshotManagerOnLoad.initializeNative();
   }
 }

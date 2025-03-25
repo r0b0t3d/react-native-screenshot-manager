@@ -25,7 +25,7 @@ target_sources(
   # CMake project name (Android C++ library name)
   ScreenshotManager PRIVATE
   # Autolinking Setup
-  ../nitrogen/generated/android/ScreenshotMangerOnLoad.cpp
+  ../nitrogen/generated/android/ScreenshotManagerOnLoad.cpp
   # Shared Nitrogen C++ sources
   ../nitrogen/generated/shared/c++/HybridScreenshotManagerSpec.cpp
   # Android-specific Nitrogen C++ sources
@@ -33,7 +33,7 @@ target_sources(
 )
 
 # Define a flag to check if we are building properly
-add_definitions(-DBUILDING_SCREENSHOTMANGER_WITH_GENERATED_CMAKE_PROJECT)
+add_definitions(-DBUILDING_SCREENSHOTMANAGER_WITH_GENERATED_CMAKE_PROJECT)
 
 # From node_modules/react-native/ReactAndroid/cmake-utils/folly-flags.cmake
 # Used in node_modules/react-native/ReactAndroid/cmake-utils/ReactNative-application.cmake

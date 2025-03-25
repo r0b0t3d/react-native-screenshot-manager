@@ -1,0 +1,19 @@
+{
+  "$schema": "https://nitro.margelo.com/nitro.schema.json",
+  "cxxNamespace": [
+    "screenshotmanager"
+  ],
+  "ios": {
+    "iosModuleName": "ScreenshotManager"
+  },
+  "android": {
+    "androidNamespace": [
+      "screenshotmanager"
+    ],
+    "androidCxxLibName": "ScreenshotManager"
+  },
+  "autolinking": {},
+  "ignorePaths": [
+    "**/node_modules"
+  ]
+}

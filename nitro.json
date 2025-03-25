@@ -12,7 +12,11 @@
     ],
     "androidCxxLibName": "ScreenshotManager"
   },
-  "autolinking": {},
+  "autolinking": {
+    "ScreenshotManager": {
+      "kotlin": "ScreenshotManager"
+    }
+  },
   "ignorePaths": [
     "**/node_modules"
   ]

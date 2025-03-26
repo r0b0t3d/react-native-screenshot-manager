@@ -15,8 +15,6 @@ namespace margelo::nitro::screenshotmanager {
     // load custom methods/properties
     registerHybrids(this, [](Prototype& prototype) {
       prototype.registerHybridMethod("enabled", &HybridScreenshotManagerSpec::enabled);
-      prototype.registerHybridMethod("enableSecureView", &HybridScreenshotManagerSpec::enableSecureView);
-      prototype.registerHybridMethod("disableSecureView", &HybridScreenshotManagerSpec::disableSecureView);
       prototype.registerHybridMethod("addListener", &HybridScreenshotManagerSpec::addListener);
     });
   }

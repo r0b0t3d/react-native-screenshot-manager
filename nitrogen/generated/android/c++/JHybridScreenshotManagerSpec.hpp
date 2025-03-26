@@ -52,8 +52,6 @@ namespace margelo::nitro::screenshotmanager {
   public:
     // Methods
     void enabled(bool value) override;
-    void enableSecureView(const std::optional<std::string>& imagePath) override;
-    void disableSecureView() override;
     std::function<void()> addListener(const std::function<void()>& listener) override;
 
   private:

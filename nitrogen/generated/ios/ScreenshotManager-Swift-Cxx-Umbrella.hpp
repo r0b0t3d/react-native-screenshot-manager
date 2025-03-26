@@ -17,8 +17,6 @@ namespace margelo::nitro::screenshotmanager { class HybridScreenshotManagerSpec;
 #include <exception>
 #include <functional>
 #include <memory>
-#include <optional>
-#include <string>
 
 // C++ helpers for Swift
 #include "ScreenshotManager-Swift-Cxx-Bridge.hpp"

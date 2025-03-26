@@ -14,8 +14,6 @@ namespace ScreenshotManager { class HybridScreenshotManagerSpec_cxx; }
 
 
 
-#include <optional>
-#include <string>
 #include <functional>
 
 #include "ScreenshotManager-Swift-Cxx-Umbrella.hpp"
@@ -59,18 +57,6 @@ namespace margelo::nitro::screenshotmanager {
     // Methods
     inline void enabled(bool value) override {
       auto __result = _swiftPart.enabled(std::forward<decltype(value)>(value));
-      if (__result.hasError()) [[unlikely]] {
-        std::rethrow_exception(__result.error());
-      }
-    }
-    inline void enableSecureView(const std::optional<std::string>& imagePath) override {
-      auto __result = _swiftPart.enableSecureView(imagePath);
-      if (__result.hasError()) [[unlikely]] {
-        std::rethrow_exception(__result.error());
-      }
-    }
-    inline void disableSecureView() override {
-      auto __result = _swiftPart.disableSecureView();
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }

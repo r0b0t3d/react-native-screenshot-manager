@@ -15,8 +15,6 @@
 
 
 
-#include <optional>
-#include <string>
 #include <functional>
 
 namespace margelo::nitro::screenshotmanager {
@@ -51,8 +49,6 @@ namespace margelo::nitro::screenshotmanager {
     public:
       // Methods
       virtual void enabled(bool value) = 0;
-      virtual void enableSecureView(const std::optional<std::string>& imagePath) = 0;
-      virtual void disableSecureView() = 0;
       virtual std::function<void()> addListener(const std::function<void()>& listener) = 0;
 
     protected:

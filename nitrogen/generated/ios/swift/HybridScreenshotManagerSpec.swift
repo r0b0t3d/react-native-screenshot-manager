@@ -15,8 +15,6 @@ public protocol HybridScreenshotManagerSpec_protocol: HybridObject {
 
   // Methods
   func enabled(value: Bool) throws -> Void
-  func enableSecureView(imagePath: String?) throws -> Void
-  func disableSecureView() throws -> Void
   func addListener(listener: @escaping () -> Void) throws -> () -> Void
 }
 

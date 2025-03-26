@@ -112,34 +112,6 @@ public class HybridScreenshotManagerSpec_cxx {
   }
   
   @inline(__always)
-  public final func enableSecureView(imagePath: bridge.std__optional_std__string_) -> bridge.Result_void_ {
-    do {
-      try self.__implementation.enableSecureView(imagePath: { () -> String? in
-        if let __unwrapped = imagePath.value {
-          return String(__unwrapped)
-        } else {
-          return nil
-        }
-      }())
-      return bridge.create_Result_void_()
-    } catch (let __error) {
-      let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_void_(__exceptionPtr)
-    }
-  }
-  
-  @inline(__always)
-  public final func disableSecureView() -> bridge.Result_void_ {
-    do {
-      try self.__implementation.disableSecureView()
-      return bridge.create_Result_void_()
-    } catch (let __error) {
-      let __exceptionPtr = __error.toCpp()
-      return bridge.create_Result_void_(__exceptionPtr)
-    }
-  }
-  
-  @inline(__always)
   public final func addListener(listener: bridge.Func_void) -> bridge.Result_std__function_void____ {
     do {
       let __result = try self.__implementation.addListener(listener: { () -> () -> Void in

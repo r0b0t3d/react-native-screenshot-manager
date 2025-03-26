@@ -44,14 +44,6 @@ abstract class HybridScreenshotManagerSpec: HybridObject() {
   @Keep
   abstract fun enabled(value: Boolean): Unit
   
-  @DoNotStrip
-  @Keep
-  abstract fun enableSecureView(imagePath: String?): Unit
-  
-  @DoNotStrip
-  @Keep
-  abstract fun disableSecureView(): Unit
-  
   abstract fun addListener(listener: () -> Unit): () -> Unit
   
   @DoNotStrip

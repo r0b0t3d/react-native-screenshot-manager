@@ -11,8 +11,6 @@
 
 #include <functional>
 #include "JFunc_void.hpp"
-#include <optional>
-#include <string>
 
 namespace margelo::nitro::screenshotmanager {
 
@@ -38,14 +36,6 @@ namespace margelo::nitro::screenshotmanager {
   void JHybridScreenshotManagerSpec::enabled(bool value) {
     static const auto method = javaClassStatic()->getMethod<void(jboolean /* value */)>("enabled");
     method(_javaPart, value);
-  }
-  void JHybridScreenshotManagerSpec::enableSecureView(const std::optional<std::string>& imagePath) {
-    static const auto method = javaClassStatic()->getMethod<void(jni::alias_ref<jni::JString> /* imagePath */)>("enableSecureView");
-    method(_javaPart, imagePath.has_value() ? jni::make_jstring(imagePath.value()) : nullptr);
-  }
-  void JHybridScreenshotManagerSpec::disableSecureView() {
-    static const auto method = javaClassStatic()->getMethod<void()>("disableSecureView");
-    method(_javaPart);
   }
   std::function<void()> JHybridScreenshotManagerSpec::addListener(const std::function<void()>& listener) {
     static const auto method = javaClassStatic()->getMethod<jni::local_ref<JFunc_void::javaobject>(jni::alias_ref<JFunc_void::javaobject> /* listener */)>("addListener_cxx");

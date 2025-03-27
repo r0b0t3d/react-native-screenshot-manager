@@ -1,39 +1,32 @@
 class ScreenshotManager: HybridScreenshotManagerSpec {
   private var enabled = false
-  private var obfuscatingView: UIImageView?
+  private var blurEffectView: UIVisualEffectView?
   private var listerners = [() -> Void]()
   
   override init() {
     super.init()
-//    NotificationCenter.default.addObserver(self, selector: #selector(handleAppStateResignActive), name: UIApplication.willResignActiveNotification, object: nil)
-//    NotificationCenter.default.addObserver(self, selector: #selector(handleAppStateActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(handleAppStateResignActive), name: UIApplication.willResignActiveNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(handleAppStateActive), name: UIApplication.didBecomeActiveNotification, object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(handleAppScreenshotNotification), name: UIApplication.userDidTakeScreenshotNotification, object: nil)
   }
   
   @objc private func handleAppStateResignActive() {
-    guard enabled, let keyWindow = UIApplication.shared.keyWindow else {
-      return
-    }
+    guard enabled, let keyWindow = UIApplication.shared.connectedScenes
+      .compactMap({ ($0 as? UIWindowScene)?.windows.first { $0.isKeyWindow } })
+      .first else { return }
     
-    UIGraphicsBeginImageContext(keyWindow.bounds.size)
-    keyWindow.drawHierarchy(in: keyWindow.bounds, afterScreenUpdates: false)
-    let viewImage = UIGraphicsGetImageFromCurrentImageContext()
-    UIGraphicsEndImageContext()
-    
-    if let blurredImage = viewImage?.applyBlurEffect() {
-      obfuscatingView = UIImageView(image: blurredImage)
-      obfuscatingView?.frame = keyWindow.bounds
-      keyWindow.addSubview(obfuscatingView!)
-    }
+    self.blurEffectView = keyWindow.addBlurView()
   }
   
   @objc private func handleAppStateActive() {
+    guard blurEffectView?.superview != nil else { return }
+    
     UIView.animate(withDuration: 0.3, animations: {
-      self.obfuscatingView?.alpha = 0
-    }) { _ in
-      self.obfuscatingView?.removeFromSuperview()
-      self.obfuscatingView = nil
-    }
+      self.blurEffectView?.alpha = 0
+    }, completion: { _ in
+      self.blurEffectView?.removeFromSuperview()
+      self.blurEffectView = nil
+    })
   }
   
   @objc private func handleAppScreenshotNotification() {
@@ -44,6 +37,14 @@ class ScreenshotManager: HybridScreenshotManagerSpec {
   
   func enabled(value: Bool) throws {
     self.enabled = value
+    
+    DispatchQueue.main.async {
+      guard let keyWindow = UIApplication.shared.connectedScenes
+        .compactMap({ ($0 as? UIWindowScene)?.windows.first { $0.isKeyWindow } })
+        .first else { return }
+      
+      keyWindow.makeSecure()
+    }
   }
   
   func addListener(listener: @escaping () -> Void) throws -> () -> Void {
@@ -55,14 +56,31 @@ class ScreenshotManager: HybridScreenshotManagerSpec {
   }
 }
 
-extension UIImage {
-  func applyBlurEffect() -> UIImage? {
-    let context = CIContext(options: nil)
-    guard let currentFilter = CIFilter(name: "CIGaussianBlur") else { return nil }
-    currentFilter.setValue(CIImage(image: self), forKey: kCIInputImageKey)
-    currentFilter.setValue(5.0, forKey: kCIInputRadiusKey)
+extension UIWindow {
+  func makeSecure() {
+    let field = UITextField()
+    let view = UIView(frame: CGRect(x: 0, y: 0, width: field.frame.self.width, height: field.frame.self.height))
+    field.isSecureTextEntry = true
+    self.addSubview(field)
+    self.layer.superlayer?.addSublayer(field.layer)
+    field.layer.sublayers?.last!.addSublayer(self.layer)
+    field.leftView = view
+    field.leftViewMode = .always
+  }
+  
+  func addBlurView() -> UIVisualEffectView {
+    let blurEffect = UIBlurEffect(style: .light)
+    let blurEffectView = UIVisualEffectView(effect: blurEffect)
     
-    guard let outputImage = currentFilter.outputImage, let cgImage = context.createCGImage(outputImage, from: outputImage.extent) else { return nil }
-    return UIImage(cgImage: cgImage)
+    blurEffectView.frame = self.bounds
+    blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    blurEffectView.alpha = 0        // Start invisible
+    
+    self.addSubview(blurEffectView)
+    // Animate the blur effect view's appearance
+    UIView.animate(withDuration: 0.3) {
+      blurEffectView.alpha = 1        // Fade in
+    }
+    return blurEffectView
   }
 }

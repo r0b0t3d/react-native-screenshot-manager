@@ -29,6 +29,7 @@ namespace margelo::nitro::screenshotmanager {
     // C++ constructor (called from Java via `initHybrid()`)
     explicit JHybridScreenshotManagerSpec(jni::alias_ref<jhybridobject> jThis) :
       HybridObject(HybridScreenshotManagerSpec::TAG),
+      HybridBase(jThis),
       _javaPart(jni::make_global(jThis)) {}
 
   public:
@@ -39,6 +40,7 @@ namespace margelo::nitro::screenshotmanager {
 
   public:
     size_t getExternalMemorySize() noexcept override;
+    void dispose() noexcept override;
 
   public:
     inline const jni::global_ref<JHybridScreenshotManagerSpec::javaobject>& getJavaPart() const noexcept {

@@ -40,14 +40,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mrousavy/nitro.git"
+    "url": "git+https://github.com/r0b0t3d/react-native-screenshot-manager.git"
   },
-  "author": "Marc Rousavy <me@mrousavy.com> (https://github.com/mrousavy)",
+  "author": "r0b0t3d <r0b0t3d@users.noreply.github.com> (https://github.com/r0b0t3d)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mrousavy/nitro/issues"
+    "url": "https://github.com/r0b0t3d/react-native-screenshot-manager/issues"
   },
-  "homepage": "https://github.com/mrousavy/nitro#readme",
+  "homepage": "https://github.com/r0b0t3d/react-native-screenshot-manager#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

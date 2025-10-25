@@ -14,25 +14,25 @@
 namespace margelo::nitro::screenshotmanager::bridge::swift {
 
   // pragma MARK: std::function<void()>
-  Func_void create_Func_void(void* _Nonnull swiftClosureWrapper) {
+  Func_void create_Func_void(void* NON_NULL swiftClosureWrapper) noexcept {
     auto swiftClosure = ScreenshotManager::Func_void::fromUnsafe(swiftClosureWrapper);
     return [swiftClosure = std::move(swiftClosure)]() mutable -> void {
       swiftClosure.call();
     };
   }
   
-  // pragma MARK: std::shared_ptr<margelo::nitro::screenshotmanager::HybridScreenshotManagerSpec>
-  std::shared_ptr<margelo::nitro::screenshotmanager::HybridScreenshotManagerSpec> create_std__shared_ptr_margelo__nitro__screenshotmanager__HybridScreenshotManagerSpec_(void* _Nonnull swiftUnsafePointer) {
+  // pragma MARK: std::shared_ptr<HybridScreenshotManagerSpec>
+  std::shared_ptr<HybridScreenshotManagerSpec> create_std__shared_ptr_HybridScreenshotManagerSpec_(void* NON_NULL swiftUnsafePointer) noexcept {
     ScreenshotManager::HybridScreenshotManagerSpec_cxx swiftPart = ScreenshotManager::HybridScreenshotManagerSpec_cxx::fromUnsafe(swiftUnsafePointer);
     return std::make_shared<margelo::nitro::screenshotmanager::HybridScreenshotManagerSpecSwift>(swiftPart);
   }
-  void* _Nonnull get_std__shared_ptr_margelo__nitro__screenshotmanager__HybridScreenshotManagerSpec_(std__shared_ptr_margelo__nitro__screenshotmanager__HybridScreenshotManagerSpec_ cppType) {
+  void* NON_NULL get_std__shared_ptr_HybridScreenshotManagerSpec_(std__shared_ptr_HybridScreenshotManagerSpec_ cppType) {
     std::shared_ptr<margelo::nitro::screenshotmanager::HybridScreenshotManagerSpecSwift> swiftWrapper = std::dynamic_pointer_cast<margelo::nitro::screenshotmanager::HybridScreenshotManagerSpecSwift>(cppType);
-  #ifdef NITRO_DEBUG
+    #ifdef NITRO_DEBUG
     if (swiftWrapper == nullptr) [[unlikely]] {
       throw std::runtime_error("Class \"HybridScreenshotManagerSpec\" is not implemented in Swift!");
     }
-  #endif
+    #endif
     ScreenshotManager::HybridScreenshotManagerSpec_cxx& swiftPart = swiftWrapper->getSwiftPart();
     return swiftPart.toUnsafe();
   }

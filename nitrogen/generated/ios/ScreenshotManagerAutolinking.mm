@@ -24,7 +24,7 @@
   HybridObjectRegistry::registerHybridObjectConstructor(
     "ScreenshotManager",
     []() -> std::shared_ptr<HybridObject> {
-      std::shared_ptr<margelo::nitro::screenshotmanager::HybridScreenshotManagerSpec> hybridObject = ScreenshotManager::ScreenshotManagerAutolinking::createScreenshotManager();
+      std::shared_ptr<HybridScreenshotManagerSpec> hybridObject = ScreenshotManager::ScreenshotManagerAutolinking::createScreenshotManager();
       return hybridObject;
     }
   );

@@ -38,45 +38,45 @@ namespace margelo::nitro::screenshotmanager::bridge::swift {
    */
   class Func_void_Wrapper final {
   public:
-    explicit Func_void_Wrapper(std::function<void()>&& func): _function(std::make_shared<std::function<void()>>(std::move(func))) {}
-    inline void call() const {
+    explicit Func_void_Wrapper(std::function<void()>&& func): _function(std::make_unique<std::function<void()>>(std::move(func))) {}
+    inline void call() const noexcept {
       _function->operator()();
     }
   private:
-    std::shared_ptr<std::function<void()>> _function;
-  };
-  Func_void create_Func_void(void* _Nonnull swiftClosureWrapper);
-  inline Func_void_Wrapper wrap_Func_void(Func_void value) {
+    std::unique_ptr<std::function<void()>> _function;
+  } SWIFT_NONCOPYABLE;
+  Func_void create_Func_void(void* NON_NULL swiftClosureWrapper) noexcept;
+  inline Func_void_Wrapper wrap_Func_void(Func_void value) noexcept {
     return Func_void_Wrapper(std::move(value));
   }
   
-  // pragma MARK: std::shared_ptr<margelo::nitro::screenshotmanager::HybridScreenshotManagerSpec>
+  // pragma MARK: std::shared_ptr<HybridScreenshotManagerSpec>
   /**
-   * Specialized version of `std::shared_ptr<margelo::nitro::screenshotmanager::HybridScreenshotManagerSpec>`.
+   * Specialized version of `std::shared_ptr<HybridScreenshotManagerSpec>`.
    */
-  using std__shared_ptr_margelo__nitro__screenshotmanager__HybridScreenshotManagerSpec_ = std::shared_ptr<margelo::nitro::screenshotmanager::HybridScreenshotManagerSpec>;
-  std::shared_ptr<margelo::nitro::screenshotmanager::HybridScreenshotManagerSpec> create_std__shared_ptr_margelo__nitro__screenshotmanager__HybridScreenshotManagerSpec_(void* _Nonnull swiftUnsafePointer);
-  void* _Nonnull get_std__shared_ptr_margelo__nitro__screenshotmanager__HybridScreenshotManagerSpec_(std__shared_ptr_margelo__nitro__screenshotmanager__HybridScreenshotManagerSpec_ cppType);
+  using std__shared_ptr_HybridScreenshotManagerSpec_ = std::shared_ptr<HybridScreenshotManagerSpec>;
+  std::shared_ptr<HybridScreenshotManagerSpec> create_std__shared_ptr_HybridScreenshotManagerSpec_(void* NON_NULL swiftUnsafePointer) noexcept;
+  void* NON_NULL get_std__shared_ptr_HybridScreenshotManagerSpec_(std__shared_ptr_HybridScreenshotManagerSpec_ cppType);
   
-  // pragma MARK: std::weak_ptr<margelo::nitro::screenshotmanager::HybridScreenshotManagerSpec>
-  using std__weak_ptr_margelo__nitro__screenshotmanager__HybridScreenshotManagerSpec_ = std::weak_ptr<margelo::nitro::screenshotmanager::HybridScreenshotManagerSpec>;
-  inline std__weak_ptr_margelo__nitro__screenshotmanager__HybridScreenshotManagerSpec_ weakify_std__shared_ptr_margelo__nitro__screenshotmanager__HybridScreenshotManagerSpec_(const std::shared_ptr<margelo::nitro::screenshotmanager::HybridScreenshotManagerSpec>& strong) { return strong; }
+  // pragma MARK: std::weak_ptr<HybridScreenshotManagerSpec>
+  using std__weak_ptr_HybridScreenshotManagerSpec_ = std::weak_ptr<HybridScreenshotManagerSpec>;
+  inline std__weak_ptr_HybridScreenshotManagerSpec_ weakify_std__shared_ptr_HybridScreenshotManagerSpec_(const std::shared_ptr<HybridScreenshotManagerSpec>& strong) noexcept { return strong; }
   
   // pragma MARK: Result<void>
   using Result_void_ = Result<void>;
-  inline Result_void_ create_Result_void_() {
+  inline Result_void_ create_Result_void_() noexcept {
     return Result<void>::withValue();
   }
-  inline Result_void_ create_Result_void_(const std::exception_ptr& error) {
+  inline Result_void_ create_Result_void_(const std::exception_ptr& error) noexcept {
     return Result<void>::withError(error);
   }
   
   // pragma MARK: Result<std::function<void()>>
   using Result_std__function_void____ = Result<std::function<void()>>;
-  inline Result_std__function_void____ create_Result_std__function_void____(const std::function<void()>& value) {
+  inline Result_std__function_void____ create_Result_std__function_void____(const std::function<void()>& value) noexcept {
     return Result<std::function<void()>>::withValue(value);
   }
-  inline Result_std__function_void____ create_Result_std__function_void____(const std::exception_ptr& error) {
+  inline Result_std__function_void____ create_Result_std__function_void____(const std::exception_ptr& error) noexcept {
     return Result<std::function<void()>>::withError(error);
   }
 

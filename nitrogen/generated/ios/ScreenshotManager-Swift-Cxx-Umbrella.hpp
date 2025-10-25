@@ -23,8 +23,9 @@ namespace margelo::nitro::screenshotmanager { class HybridScreenshotManagerSpec;
 
 // Common C++ types used in Swift
 #include <NitroModules/ArrayBufferHolder.hpp>
-#include <NitroModules/AnyMapHolder.hpp>
+#include <NitroModules/AnyMapUtils.hpp>
 #include <NitroModules/RuntimeError.hpp>
+#include <NitroModules/DateToChronoDate.hpp>
 
 // Forward declarations of Swift defined types
 // Forward declaration of `HybridScreenshotManagerSpec_cxx` to properly resolve imports.

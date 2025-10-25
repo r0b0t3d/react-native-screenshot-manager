@@ -29,6 +29,11 @@ namespace margelo::nitro::screenshotmanager {
     return method(_javaPart);
   }
 
+  void JHybridScreenshotManagerSpec::dispose() noexcept {
+    static const auto method = javaClassStatic()->getMethod<void()>("dispose");
+    method(_javaPart);
+  }
+
   // Properties
   
 
@@ -45,8 +50,9 @@ namespace margelo::nitro::screenshotmanager {
         auto downcast = jni::static_ref_cast<JFunc_void_cxx::javaobject>(__result);
         return downcast->cthis()->getFunction();
       } else {
-        return [__result]() -> void {
-          return __result->invoke();
+        auto __resultRef = jni::make_global(__result);
+        return [__resultRef]() -> void {
+          return __resultRef->invoke();
         };
       }
     }();

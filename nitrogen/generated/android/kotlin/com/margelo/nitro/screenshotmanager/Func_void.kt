@@ -10,8 +10,8 @@ package com.margelo.nitro.screenshotmanager
 import androidx.annotation.Keep
 import com.facebook.jni.HybridData
 import com.facebook.proguard.annotations.DoNotStrip
-import com.margelo.nitro.core.*
 import dalvik.annotation.optimization.FastNative
+
 
 /**
  * Represents the JavaScript callback `() => void`.

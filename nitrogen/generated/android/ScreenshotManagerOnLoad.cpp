@@ -17,7 +17,6 @@
 
 #include "JHybridScreenshotManagerSpec.hpp"
 #include "JFunc_void.hpp"
-#include <NitroModules/JNISharedPtr.hpp>
 #include <NitroModules/DefaultConstructableObject.hpp>
 
 namespace margelo::nitro::screenshotmanager {
@@ -38,8 +37,7 @@ int initialize(JavaVM* vm) {
       []() -> std::shared_ptr<HybridObject> {
         static DefaultConstructableObject<JHybridScreenshotManagerSpec::javaobject> object("com/margelo/nitro/screenshotmanager/ScreenshotManager");
         auto instance = object.create();
-        auto globalRef = jni::make_global(instance);
-        return JNISharedPtr::make_shared_from_jni<JHybridScreenshotManagerSpec>(globalRef);
+        return instance->cthis()->shared();
       }
     );
   });

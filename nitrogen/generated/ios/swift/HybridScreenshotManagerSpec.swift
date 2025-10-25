@@ -19,8 +19,9 @@ public protocol HybridScreenshotManagerSpec_protocol: HybridObject {
 }
 
 /// See ``HybridScreenshotManagerSpec``
-public class HybridScreenshotManagerSpec_base {
+open class HybridScreenshotManagerSpec_base {
   private weak var cxxWrapper: HybridScreenshotManagerSpec_cxx? = nil
+  public init() { }
   public func getCxxWrapper() -> HybridScreenshotManagerSpec_cxx {
   #if DEBUG
     guard self is HybridScreenshotManagerSpec else {

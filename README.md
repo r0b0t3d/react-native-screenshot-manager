@@ -78,6 +78,10 @@ useEffect(() => {
 - **Android**:
   - Uses `WindowManager.LayoutParams.FLAG_SECURE` for preventing screenshots.
   - Uses `Activity.registerScreenCaptureCallback` (API 34+) for detection.
+  - **Requirement**: You must add the following permission to your `AndroidManifest.xml` for screenshot detection to work on Android 14+:
+    ```xml
+    <uses-permission android:name="android.permission.DETECT_SCREEN_CAPTURE" />
+    ```
 - **iOS**:
   - Uses a hidden `UITextField` with `isSecureTextEntry = true` attached to the window to obscure content.
   - Listens to `UIApplication.userDidTakeScreenshotNotification`.

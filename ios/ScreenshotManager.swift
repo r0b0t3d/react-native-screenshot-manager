@@ -39,11 +39,17 @@ class ScreenshotManager: HybridScreenshotManagerSpec {
     self.enabled = value
     
     DispatchQueue.main.async {
-      guard let keyWindow = UIApplication.shared.connectedScenes
-        .compactMap({ ($0 as? UIWindowScene)?.windows.first { $0.isKeyWindow } })
-        .first else { return }
-      
-      keyWindow.makeSecure()
+      if value {
+        guard let keyWindow = UIApplication.shared.connectedScenes
+          .compactMap({ ($0 as? UIWindowScene)?.windows.first { $0.isKeyWindow } })
+          .first else { return }
+        keyWindow.makeSecure()
+      } else {
+        UIApplication.shared.connectedScenes
+          .compactMap { $0 as? UIWindowScene }
+          .flatMap { $0.windows }
+          .forEach { $0.makeInsecure() }
+      }
     }
   }
   
@@ -56,16 +62,53 @@ class ScreenshotManager: HybridScreenshotManagerSpec {
   }
 }
 
+private class SecureTextField: UITextField {
+  override var canBecomeFirstResponder: Bool { false }
+
+  override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+    return false
+  }
+
+  override func selectionRects(for range: UITextRange) -> [UITextSelectionRect] {
+    return []
+  }
+
+  override func caretRect(for position: UITextPosition) -> CGRect {
+    return .zero
+  }
+}
+
 extension UIWindow {
+  private var secureFieldTag: Int { 97531 }
+
   func makeSecure() {
-    let field = UITextField()
+    guard self.viewWithTag(secureFieldTag) == nil else { return }
+
+    let field = SecureTextField()
+    field.tag = secureFieldTag
+    field.isUserInteractionEnabled = false
     let view = UIView(frame: CGRect(x: 0, y: 0, width: field.frame.self.width, height: field.frame.self.height))
     field.isSecureTextEntry = true
     self.addSubview(field)
-    self.layer.superlayer?.addSublayer(field.layer)
-    field.layer.sublayers?.last!.addSublayer(self.layer)
+    
+    guard let superlayer = self.layer.superlayer else { return }
+    
+    superlayer.addSublayer(field.layer)
+    field.layer.sublayers?.last?.addSublayer(self.layer)
+    
     field.leftView = view
     field.leftViewMode = .always
+  }
+
+  func makeInsecure() {
+    guard let field = self.viewWithTag(secureFieldTag) else { return }
+    
+    if let superlayer = field.layer.superlayer {
+      superlayer.addSublayer(self.layer)
+    }
+    
+    field.removeFromSuperview()
+    field.layer.removeFromSuperlayer()
   }
   
   func addBlurView() -> UIVisualEffectView {

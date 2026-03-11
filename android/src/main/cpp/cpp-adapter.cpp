@@ -2,5 +2,7 @@
 #include "ScreenshotManagerOnLoad.hpp"
 
 JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void*) {
-  return margelo::nitro::screenshotmanager::initialize(vm);
+  return facebook::jni::initialize(vm, []() {
+    margelo::nitro::screenshotmanager::registerAllNatives();
+  });
 }
